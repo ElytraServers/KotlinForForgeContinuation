@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 plugins {
     alias(libs.plugins.kotlin)
     alias(libs.plugins.moddevgradle)
@@ -71,5 +73,11 @@ publishing {
             from(components["java"])
             artifactId = "kotlinforforge"
         }
+    }
+}
+
+tasks.processResources {
+    filesMatching("**/mods.toml") {
+        filter(ReplaceTokens::class, "tokens" to mapOf("VERSION" to project.version))
     }
 }

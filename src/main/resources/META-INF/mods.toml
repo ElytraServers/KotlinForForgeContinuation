@@ -4,7 +4,7 @@ license='LGPL'
 
 [[mods]]
 modId="kotlinforforge"
-version="4.11.0"
+version="@VERSION@"
 displayName="Kotlin For Forge Continuation"
 logoFile="kotlinforforge_icon.png"
 credits="thedarkcolour and his \"minions\""
