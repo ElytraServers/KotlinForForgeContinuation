@@ -1,12 +1,20 @@
 plugins {
     alias(libs.plugins.kotlin)
     alias(libs.plugins.moddevgradle)
+    alias(libs.plugins.gitVersion)
 
     `maven-publish`
 }
 
 group = "cn.taskeren"
-version = "1.0-SNAPSHOT"
+
+val gitVersion: groovy.lang.Closure<String> by extra
+try {
+    version = gitVersion()
+} catch (e: Exception) {
+    println("Failed to read version from git")
+    e.printStackTrace()
+}
 
 repositories {
     mavenCentral()
@@ -44,14 +52,14 @@ dependencies {
 
 legacyForge {
     runs {
-        create("client") {
+        val client by creating {
             client()
             gameDirectory = file("run/client")
         }
     }
 
     mods {
-        create("kotlinforforge") {
+        val kotlinforforge by creating {
             sourceSet(sourceSets.main.get())
         }
     }
